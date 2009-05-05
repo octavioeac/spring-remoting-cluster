@@ -27,12 +27,11 @@
 
 
   <groupId>com.proemion.spring.cluster</groupId>
-  <artifactId>cluster-core</artifactId>
+  <artifactId>cluster-support</artifactId>
   <packaging>jar</packaging>
   <version>0.2-SNAPSHOT</version>
-  <name>Clustering Support for Spring Remoting (core)</name>
+  <name>Clustering Support for Spring Remoting (support classes)</name>
   <description>fill me</description>
-  <url>${site.http.url}/pbos/cu-reactor/socketserver-server</url>
 
   <!--issueManagement>
     <system>jira</system>
@@ -47,7 +46,7 @@
 
   <dependencies>
   
-    <dependency>
+    <!--dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version>
@@ -58,49 +57,6 @@
       <classifier>jdk15</classifier>
       <scope>test</scope>
       <version>${testng.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-aspects</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-aop</artifactId>
-    	<version>${spring.version}</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.springframework.security</groupId>
-    	<artifactId>spring-security-core</artifactId>
-    	<version>2.0.4</version>
-    </dependency>
-    <dependency>
-    	<groupId>com.proemion.spring.cluster</groupId>
-    	<artifactId>cluster-support</artifactId>
-    	<version>0.2-SNAPSHOT</version>
-    </dependency>
-    <!--dependency>
-      <groupId>org.easymock</groupId>
-      <artifactId>easymock</artifactId>
-      <version>2.3</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.easymock</groupId>
-      <artifactId>easymockclassextension</artifactId>
-      <version>2.2.2</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>cglib-nodep</artifactId>
-          <groupId>cglib</groupId>
-        </exclusion>
-      </exclusions>
     </dependency-->
   </dependencies>
 </project>
