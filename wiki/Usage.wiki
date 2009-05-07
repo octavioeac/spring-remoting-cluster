@@ -12,6 +12,14 @@ The clustering framework consists of four parts:
  * a FailureHandler which implements failover strategies
  * the RemoteClusteringProxyFactoryBean which handles the method invocations and the rest
 
+= Using the Binaries =
+
+ # Get a Java SDK 6.
+ # Download the latest build from [http://code.google.com/p/spring-remoting-cluster/downloads/list here]
+ # extract the archive and add both jars to your classpath
+ # use it
+ # give us some feedback
+
 = Building from Source =
 
  # Get a Java SDK 6, a subversion client and maven.
