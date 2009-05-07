@@ -17,6 +17,7 @@ The clustering framework consists of four parts:
  # Get a Java SDK 6, a subversion client and maven.
  # Checkout the [http://code.google.com/p/spring-remoting-cluster/source/checkout source code]
  # run {{{ mvn clean install }}}
+  Currently there's a bug when you try to build it the first time. Just run a single {{{mvn -N install}}} before
  # add the resulting jars to the classpath or add the maven dependencies
  # use it
  # give us some feedback
