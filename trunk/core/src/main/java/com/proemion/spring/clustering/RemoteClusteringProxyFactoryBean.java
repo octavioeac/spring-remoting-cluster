@@ -37,7 +37,7 @@ public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements
   Logger logger = LoggerFactory.getLogger(getClass());
   // Statics
   
-  //Connection handling
+  //Handlers
   private ServiceList serviceList;
   private FailureHandler failureHandler;
   private ProtocolHandler protocolHandler;
@@ -60,12 +60,16 @@ public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements
       service.abandonInvocation(invocation);
       
       switch (result.getResultType()) {
+        
+        //Errors on remoting
         case REMOTING_ERROR :
           getFailureHandler().failedInvocation(service, invocation);
           break;
         case REMOTING_TIMEOUT :
           getFailureHandler().timedOutInvocation(service, invocation);
           break;
+          
+          // remoting executed normally
         case SERVER_METHOD_RETURNED :
           getFailureHandler().stateOk(service);
           returnValue = result.getResult();
@@ -74,11 +78,14 @@ public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements
         case SERVER_METHOD_EXCEPTION :
           getFailureHandler().stateOk(service);
           throw (Throwable)result.getResult();
+          
+          //should not happen, just in case!
         default:
           logger.error("Unexpexcted result type: {}", result.getResult());
           break;
       }
       
+      //loop until Failure Handler throws exception, or method was executed successfully
     } while (!fin);
     
     return returnValue;
@@ -133,23 +140,23 @@ public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements
   public void destroy() throws Exception {
     
   }
-
-
-  public void setFailureHandler(FailureHandler failureHandler) {
+  
+  
+  public void setFailureHandler(final FailureHandler failureHandler) {
     this.failureHandler = failureHandler;
   }
-
-
+  
+  
   public FailureHandler getFailureHandler() {
     return failureHandler;
   }
-
-
-  public void setProtocolHandler(ProtocolHandler protocolHandler) {
+  
+  
+  public void setProtocolHandler(final ProtocolHandler protocolHandler) {
     this.protocolHandler = protocolHandler;
   }
-
-
+  
+  
   public ProtocolHandler getProtocolHandler() {
     return protocolHandler;
   }

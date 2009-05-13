@@ -21,7 +21,7 @@
   <parent>
     <groupId>com.proemion.spring.cluster</groupId>
     <artifactId>reactor</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -29,10 +29,9 @@
   <groupId>com.proemion.spring.cluster</groupId>
   <artifactId>cluster-core</artifactId>
   <packaging>jar</packaging>
-  <version>0.2-SNAPSHOT</version>
+  <version>0.2.0-SNAPSHOT</version>
   <name>Clustering Support for Spring Remoting (core)</name>
   <description>fill me</description>
-  <url>${site.http.url}/pbos/cu-reactor/socketserver-server</url>
 
   <!--issueManagement>
     <system>jira</system>
@@ -82,7 +81,7 @@
     <dependency>
     	<groupId>com.proemion.spring.cluster</groupId>
     	<artifactId>cluster-support</artifactId>
-    	<version>0.2-SNAPSHOT</version>
+    	<version>0.2.0-SNAPSHOT</version>
     </dependency>
     <!--dependency>
       <groupId>org.easymock</groupId>

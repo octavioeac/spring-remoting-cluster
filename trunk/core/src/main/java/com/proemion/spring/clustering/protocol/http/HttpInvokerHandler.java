@@ -175,7 +175,7 @@ public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware
       //      logger.debug("Method {} has ClusterConfig? {}", method, (method.getAnnotation(ClusterMethodInfo.class) != null));
       if (method.getParameterTypes().length == 0) {
         ClusterMethodInfo info = method.getAnnotation(ClusterMethodInfo.class);
-        if ((info != null) && (info.type() == MethodType.TEST)) {
+        if ((info != null) && (info.type() == MethodType.HEARTBEAT)) {
           tests.add(method);
         }
       }
