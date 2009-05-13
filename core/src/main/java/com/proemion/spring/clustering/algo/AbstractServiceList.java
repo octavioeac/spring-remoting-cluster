@@ -2,7 +2,6 @@ package com.proemion.spring.clustering.algo;
 
 import com.proemion.spring.clustering.FailureDefinition;
 import com.proemion.spring.clustering.ProtocolDefinition;
-import com.proemion.spring.clustering.ProtocolHandler;
 import com.proemion.spring.clustering.RemoteService;
 import com.proemion.spring.clustering.ServiceList;
 
@@ -70,7 +69,7 @@ public abstract class AbstractServiceList implements ServiceList{
     
     @Override
     public String toString() {
-      return getURI()+" ["+ (active?"connected":"dead")+", "+(deleted?"active":"deleted")+"]";
+      return getURI()+" ["+ (active?"connected":"dead")+", "+(deleted?"deleted":"active")+"]";
     }
     
     public ProtocolDefinition getDefinition() {
@@ -92,10 +91,5 @@ public abstract class AbstractServiceList implements ServiceList{
       return failureDefinition;
     }
   }
-  
-  //TODO: getter, setter, spring config
-  private volatile ProtocolHandler protocolHandler;
-  
-  
   
 }
