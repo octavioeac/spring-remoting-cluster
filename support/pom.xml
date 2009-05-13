@@ -21,7 +21,7 @@
   <parent>
     <groupId>com.proemion.spring.cluster</groupId>
     <artifactId>reactor</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -29,7 +29,7 @@
   <groupId>com.proemion.spring.cluster</groupId>
   <artifactId>cluster-support</artifactId>
   <packaging>jar</packaging>
-  <version>0.2.0</version>
+  <version>0.2.1-SNAPSHOT</version>
   <name>Clustering Support for Spring Remoting (support classes)</name>
   <description>fill me</description>
 
