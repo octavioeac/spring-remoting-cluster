@@ -45,6 +45,9 @@ public class RoundRobinServiceList extends AbstractServiceList{
     
     @Override
     public void setActive(final boolean connected) {
+      if (connected == super.isActive()) {
+        return;
+      }
       super.setActive(connected);
       refresh(this);
     }

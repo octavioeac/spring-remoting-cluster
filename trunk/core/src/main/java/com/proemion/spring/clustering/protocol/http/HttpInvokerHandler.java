@@ -24,6 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware, InitializingBean{
   
@@ -49,9 +50,61 @@ public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware
     
   }
   
+  private class MethodInvoker implements Runnable {
+    
+    private final MethodInvocation invocation;
+    private volatile InvocationResult result;
+    private final MethodInterceptor interceptor;
+    
+    protected MethodInvoker(final MethodInterceptor interceptor, final MethodInvocation invocation ){
+      this.interceptor = interceptor;
+      this.invocation = invocation;
+    }
+    
+    @Override
+    public void run() {
+      try {
+        Object returnValue = interceptor.invoke(invocation);
+        result = new InvocationResult(ResultType.SERVER_METHOD_RETURNED, returnValue);
+      } catch (RemoteAccessException e) {
+        result = new InvocationResult(ResultType.REMOTING_ERROR, e);
+      } catch (Throwable e) {
+        result = new InvocationResult(ResultType.SERVER_METHOD_EXCEPTION, e);
+      }
+      synchronized (this) {
+        logger.debug("notifying");
+        this.notifyAll();
+      }
+    }
+    
+    InvocationResult invoke(final long timeout){
+      new Thread(this).start();
+      synchronized (this) {
+        if (result == null) {
+          try {
+            if (timeout <= 0) {
+              this.wait();
+              logger.debug("wakeup");
+            } else {
+              this.wait(timeout);
+              logger.debug("wakeup");
+            }
+          } catch (InterruptedException e) {
+            logger.warn("Thread was interrupted", e);
+          }
+        }
+      }
+      if (result == null) {
+        result = new InvocationResult(ResultType.REMOTING_TIMEOUT, null);
+      }
+      return result;
+    }
+  }
+  
   private ClusteringConfiguration configuration;
   private ClassLoader beanClassLoader;
   private volatile List<Method> testMethods;
+  private long defaultTimeout = TimeUnit.MINUTES.toMillis(5);
   
   public HttpInvokerHandler () {
   }
@@ -60,20 +113,21 @@ public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware
   public InvocationResult invoke (final RemoteService service, final MethodInvocation invocation) {
     logger.debug("call to {}, routing to {}",invocation.getMethod().getName(), service);
     HttpServiceDefinition definition = getServiceDefinition(service);
-    InvocationResult result;
-    MethodInterceptor interceptor = (definition).getInterceptor();
+    MethodInterceptor interceptor = definition.getInterceptor();
     if (interceptor == null) {
       throw new NullPointerException("No interceptor found! "+definition);
     }
-    try {
-      Object returnValue = interceptor.invoke(invocation);
-      result = new InvocationResult(ResultType.SERVER_METHOD_RETURNED, returnValue);
-    } catch (RemoteAccessException e) {
-      result = new InvocationResult(ResultType.REMOTING_ERROR, e);
-    } catch (Throwable e) {
-      result = new InvocationResult(ResultType.SERVER_METHOD_EXCEPTION, e);
+    
+    ClusterMethodInfo annotation = invocation.getMethod().getAnnotation(ClusterMethodInfo.class);
+    long timeout;
+    if ((annotation != null) && (annotation.timeout() >= 0)) {
+      timeout = annotation.timeout();
+    } else {
+      timeout = getDefaultTimeout();
     }
     
+    MethodInvoker invoker = new MethodInvoker(interceptor, invocation);
+    InvocationResult result = invoker.invoke(timeout);
     return result;
   }
   
@@ -105,6 +159,14 @@ public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware
   
   public ClusteringConfiguration getConfiguration() {
     return configuration;
+  }
+  
+  public void setDefaultTimeout(final long defaultTimeout) {
+    this.defaultTimeout = defaultTimeout;
+  }
+  
+  public long getDefaultTimeout() {
+    return defaultTimeout;
   }
   
   @Override

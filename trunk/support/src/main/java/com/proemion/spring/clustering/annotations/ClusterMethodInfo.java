@@ -30,5 +30,7 @@ public @interface ClusterMethodInfo {
   
   MethodType type() default MethodType.NORMAL;
   FailureType fail() default FailureType.HANDLER;
-  String[] expectedResults() ;
+  /** The timeout to use for this method, 0 for no timeout, negative values for default timeout */
+  long timeout() default -1;
+  String[] expectedResults() default {};
 }
