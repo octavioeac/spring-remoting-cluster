@@ -47,6 +47,7 @@ public class ParanoidFailureHandler implements FailureHandler, InitializingBean,
   
   Logger logger = LoggerFactory.getLogger(getClass());
   
+  private int reactivationTime = 5000;
   private long testTimeout = 5000;
   private int maxRetryCount = 20;
   
@@ -65,7 +66,7 @@ public class ParanoidFailureHandler implements FailureHandler, InitializingBean,
     service.setActive(false);
   }
   
-  private void tryReactivation() {
+  private synchronized void tryReactivation() {
     for (final RemoteService service: getServiceList()) {
       
       Thread thread = new Thread(new ServiceTest(service));
@@ -117,7 +118,7 @@ public class ParanoidFailureHandler implements FailureHandler, InitializingBean,
         }
       }
     };
-    timer.scheduleAtFixedRate(reactivationTask, 10000, 120000);
+    timer.scheduleAtFixedRate(reactivationTask, getReactivationTime(), getReactivationTime());
   }
   
   @Override
@@ -138,7 +139,7 @@ public class ParanoidFailureHandler implements FailureHandler, InitializingBean,
       }
       
       tryReactivation();
-    }while (((++i) < maxRetryCount) && !serviceList.isOneAlive());
+    }while (((++i) < getMaxRetryCount()) && !serviceList.isOneAlive());
     if (!serviceList.isOneAlive()) {
       throw new IllegalStateException("No Service alive");
     }
@@ -158,6 +159,22 @@ public class ParanoidFailureHandler implements FailureHandler, InitializingBean,
   
   public ProtocolHandler getProtocolHandler() {
     return protocolHandler;
+  }
+  
+  public void setReactivationTime(final int reactivationTime) {
+    this.reactivationTime = reactivationTime;
+  }
+  
+  public int getReactivationTime() {
+    return reactivationTime;
+  }
+  
+  public void setMaxRetryCount(final int maxRetryCount) {
+    this.maxRetryCount = maxRetryCount;
+  }
+  
+  public int getMaxRetryCount() {
+    return maxRetryCount;
   }
   
 }
