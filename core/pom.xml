@@ -83,6 +83,18 @@
     	<artifactId>cluster-support</artifactId>
     	<version>0.2.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+    	<groupId>org.easymock</groupId>
+    	<artifactId>easymock</artifactId>
+    	<version>2.5</version>
+    	<scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.mortbay.jetty</groupId>
+    	<artifactId>jetty</artifactId>
+    	<version>6.1.12</version>
+    	<scope>test</scope>
+    </dependency>
     <!--dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
