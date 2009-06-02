@@ -217,7 +217,7 @@ public class HttpInvokerHandlerTest {
   }
   
   @Test(dataProvider="blockingMethods")
-  public void testTimeout(final String methodName, long timeout) throws Exception {
+  public void testTimeout(final String methodName, final long paramTimeout) throws Exception {
     //Setup environment
     Setup setup = setUp();
     setup.reset();
@@ -234,9 +234,12 @@ public class HttpInvokerHandlerTest {
     //verify mocks
     setup.verify();
     
+    long timeout;
     //Check postconditions
-    if (timeout == -1) {
+    if (paramTimeout == -1) {
       timeout = setup.protoHandler.getDefaultTimeout();
+    } else {
+      timeout = paramTimeout;
     }
     //Check timeouts with a little variation (not more than 25ms before and no longer than 100ms after declared timeout)
     assertTrue(timeTaken >= (timeout-25), "timeout not used, was:"+timeTaken+" should be:"+timeout);
