@@ -7,7 +7,7 @@
     <url>http://www.proemion.com/</url>
   </organization>
   <groupId>com.proemion.spring.cluster</groupId>
-  <version>0.2.1-SNAPSHOT</version>
+  <version>0.2.1-M1</version>
   <artifactId>reactor</artifactId>
   <name>Clustering Support for Spring Remoting</name>
   <packaging>pom</packaging>
@@ -17,9 +17,9 @@
   <url>http://code.google.com/p/spring-remoting-cluster/</url>
 
   <scm>
-    <connection>scm:svn:https://spring-remoting-cluster.googlecode.com/svn/trunk</connection>
-    <developerConnection>scm:svn:https://spring-remoting-cluster.googlecode.com/svn/trunk</developerConnection>
-    <url>https://spring-remoting-cluster.googlecode.com/svn/trunk</url>
+    <connection>scm:svn:https://spring-remoting-cluster.googlecode.com/svn/tags/reactor-0.2.1-M1</connection>
+    <developerConnection>scm:svn:https://spring-remoting-cluster.googlecode.com/svn/tags/reactor-0.2.1-M1</developerConnection>
+    <url>https://spring-remoting-cluster.googlecode.com/svn/tags/reactor-0.2.1-M1</url>
   </scm>  
     
     
