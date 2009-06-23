@@ -63,7 +63,7 @@ public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements
         
         //Errors on remoting
         case REMOTING_ERROR :
-          logger.error("Failed invocation");
+          logger.error("Failed invocation", (Exception)result.getResult());
           getFailureHandler().failedInvocation(service, invocation);
           break;
         case REMOTING_TIMEOUT :
