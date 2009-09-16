@@ -31,7 +31,7 @@ import org.springframework.remoting.support.RemotingSupport;
 
 /**
  * Enables Clustering via HTTP Remoting
- * 
+ *
  */
 public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements InitializingBean, FactoryBean, MethodInterceptor, DisposableBean{
   Logger logger = LoggerFactory.getLogger(getClass());
@@ -48,9 +48,11 @@ public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements
   
   @Override
   public Object invoke(final MethodInvocation invocation) throws Throwable{
-    boolean fin = false;
+    boolean fin = false; //finish without further tries
     Object returnValue = null;
+    int counter = 0;
     do {
+      counter++;
       RemoteService service = serviceList.claimInvocation(invocation);
       if (service == null) {
         getFailureHandler().forceReactivations();
@@ -64,11 +66,11 @@ public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements
         //Errors on remoting
         case REMOTING_ERROR :
           logger.error("Failed invocation", (Exception)result.getResult());
-          getFailureHandler().failedInvocation(service, invocation);
+          getFailureHandler().failedInvocation(service, invocation, counter);
           break;
         case REMOTING_TIMEOUT :
           logger.error("timed out invocation");
-          getFailureHandler().timedOutInvocation(service, invocation);
+          getFailureHandler().timedOutInvocation(service, invocation, counter);
           break;
           
           // remoting executed normally
@@ -91,6 +93,11 @@ public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements
     } while (!fin);
     
     return returnValue;
+  }
+  
+  
+  private Object figetFailureHandler() {
+    return null;
   }
   
   

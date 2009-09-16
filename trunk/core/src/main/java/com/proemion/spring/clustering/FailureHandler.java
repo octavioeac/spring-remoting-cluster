@@ -18,17 +18,19 @@ public interface FailureHandler {
    * Called when a method invocation failed, means: The method did not threw an Exception or returned successfully.
    * @param service The service that failed
    * @param invocation The method invocation that failed
+   * @param count the current (re)try-count
    * @throws RemoteAccessException In case of errors, the caller will receive an Exception
    */
-  void failedInvocation(RemoteService service, MethodInvocation invocation) throws RemoteAccessException;
+  void failedInvocation(final RemoteService service, final MethodInvocation invocation, final int count) throws RemoteAccessException;
   
   /**
    * Called when a method invocation times out, without returning either successfully or with an exception.
    * @param service The service that failed
    * @param invocation The method invocation that failed
+   * @param count the current (re)try-count
    * @throws RemoteAccessException In case of errors, the caller will receive an Exception
    */
-  void timedOutInvocation(RemoteService service, MethodInvocation invocation) throws RemoteAccessException;
+  void timedOutInvocation(final RemoteService service, final MethodInvocation invocation, final int count) throws RemoteAccessException;
   
   /**
    * a method call was returned successfully. Useful for failure counting handlers.

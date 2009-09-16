@@ -8,6 +8,7 @@ import static org.testng.Assert.fail;
 
 import com.proemion.spring.clustering.ProtocolHandler;
 import com.proemion.spring.clustering.RemoteService;
+import com.proemion.spring.clustering.RemotingInvocationException;
 import com.proemion.spring.clustering.ServiceList;
 
 import org.aopalliance.intercept.MethodInvocation;
@@ -92,12 +93,12 @@ public class ParanoidFailureHandlerTest {
     
     
     setup.replay();
-    setup.failureHandler.failedInvocation(setup.aService2, createMock(MethodInvocation.class));
+    setup.failureHandler.failedInvocation(setup.aService2, createMock(MethodInvocation.class), 1);
     setup.verify();
   }
   
-  @Test
-  public void timedoutExecution() throws Exception {
+  @Test(expectedExceptions=RemotingInvocationException.class)
+  public void testFailedExecutionOverLimit() throws Exception {
     Setup setup = setUp();
     setup.reset();
     
@@ -105,7 +106,33 @@ public class ParanoidFailureHandlerTest {
     
     
     setup.replay();
-    setup.failureHandler.timedOutInvocation(setup.aService2, createMock(MethodInvocation.class));
+    setup.failureHandler.failedInvocation(setup.aService2, createMock(MethodInvocation.class), 99);
+    setup.verify();
+  }
+  
+  @Test
+  public void timedOutExecution() throws Exception {
+    Setup setup = setUp();
+    setup.reset();
+    
+    setup.aService2.setActive(false);
+    
+    
+    setup.replay();
+    setup.failureHandler.timedOutInvocation(setup.aService2, createMock(MethodInvocation.class), 1);
+    setup.verify();
+  }
+  
+  @Test(expectedExceptions=RemotingInvocationException.class)
+  public void timedOutExecutionOverLimit() throws Exception {
+    Setup setup = setUp();
+    setup.reset();
+    
+    setup.aService2.setActive(false);
+    
+    
+    setup.replay();
+    setup.failureHandler.timedOutInvocation(setup.aService2, createMock(MethodInvocation.class), 99);
     setup.verify();
   }
   
