@@ -3,6 +3,8 @@ package com.proemion.spring.clustering.fail;
 import com.proemion.spring.clustering.FailureHandler;
 import com.proemion.spring.clustering.ProtocolHandler;
 import com.proemion.spring.clustering.RemoteService;
+import com.proemion.spring.clustering.RemotingInvocationException;
+import com.proemion.spring.clustering.RemotingTimeoutException;
 import com.proemion.spring.clustering.ServiceList;
 
 import org.aopalliance.intercept.MethodInvocation;
@@ -57,13 +59,19 @@ public class ParanoidFailureHandler implements FailureHandler, InitializingBean,
   }
   
   @Override
-  public void timedOutInvocation(final RemoteService service, final MethodInvocation invocation) throws RemoteAccessException {
+  public void timedOutInvocation(final RemoteService service, final MethodInvocation invocation, final int count) throws RemoteAccessException {
     service.setActive(false);
+    if (count > maxRetryCount) {
+      throw new RemotingTimeoutException("Timeout while executing Method "+invocation.getMethod());
+    }
   }
   
   @Override
-  public void failedInvocation(final RemoteService service, final MethodInvocation invocation) {
+  public void failedInvocation(final RemoteService service, final MethodInvocation invocation, final int count) {
     service.setActive(false);
+    if (count > maxRetryCount) {
+      throw new RemotingInvocationException("Timeout while executing Method "+invocation.getMethod());
+    }
   }
   
   private synchronized void tryReactivation() {
