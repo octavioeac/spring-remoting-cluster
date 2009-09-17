@@ -284,7 +284,7 @@ public class HttpInvokerHandlerTest {
     expect(setup.aService1.getURI()).andReturn(new URI(serviceUrl)).anyTimes();
     setup.aService1.setProtocolDefinition(capture(protoDefinition));
     expect(setup.aService1.getProtocolDefinition()).andAnswer(new IAnswer<ProtocolDefinition>(){
-      @Override
+      //      @Override
       public ProtocolDefinition answer() throws Throwable {
         return protoDefinition.getValue();
       }

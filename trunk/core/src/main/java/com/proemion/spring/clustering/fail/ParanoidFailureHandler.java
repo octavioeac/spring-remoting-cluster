@@ -30,7 +30,7 @@ public class ParanoidFailureHandler implements FailureHandler, InitializingBean,
       this.service = service;
     }
     
-    @Override
+    //    @Override
     public void run() {
       if (getProtocolHandler().testConnection(service)) {
         logger.info("reactivating {}", service);
@@ -53,12 +53,12 @@ public class ParanoidFailureHandler implements FailureHandler, InitializingBean,
   private long testTimeout = 5000;
   private int maxRetryCount = 20;
   
-  @Override
+  //  @Override
   public void stateOk(final RemoteService service) {
     //We are paranoid, so this doesn't mean anything to us.
   }
   
-  @Override
+  //  @Override
   public void timedOutInvocation(final RemoteService service, final MethodInvocation invocation, final int count) throws RemoteAccessException {
     service.setActive(false);
     if (count > maxRetryCount) {
@@ -66,7 +66,7 @@ public class ParanoidFailureHandler implements FailureHandler, InitializingBean,
     }
   }
   
-  @Override
+  //  @Override
   public void failedInvocation(final RemoteService service, final MethodInvocation invocation, final int count) {
     service.setActive(false);
     if (count > maxRetryCount) {
@@ -102,7 +102,7 @@ public class ParanoidFailureHandler implements FailureHandler, InitializingBean,
     return testTimeout;
   }
   
-  @Override
+  //  @Override
   public void afterPropertiesSet() throws Exception {
     if (getServiceList() == null) {
       throw new IllegalArgumentException("ServiceList Property must be filled");
@@ -129,12 +129,12 @@ public class ParanoidFailureHandler implements FailureHandler, InitializingBean,
     timer.scheduleAtFixedRate(reactivationTask, getReactivationTime(), getReactivationTime());
   }
   
-  @Override
+  //  @Override
   public void destroy() throws Exception {
     reactivationTask.cancel();
   }
   
-  @Override
+  //  @Override
   public void forceReactivations() {
     int i = 0;
     do {

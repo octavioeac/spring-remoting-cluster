@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DummyService implements DummyInterface {
   
-  @Override
+  //  @Override
   public void blockingMethod() {
     block();
   }
@@ -18,28 +18,28 @@ public class DummyService implements DummyInterface {
     }
   }
   
-  @Override
+  //  @Override
   public boolean heartbeatMethod() {
     return true;
   }
   
-  @Override
+  //  @Override
   public boolean simpleMethod() {
     System.out.println("simpleMethod called");
     return true;
   }
   
-  @Override
+  //  @Override
   public void failingMethod() throws Exception {
     throw new NullPointerException("Catch me if you can");
   }
   
-  @Override
+  //  @Override
   public void heartbeatMethod2() {
     return;
   }
   
-  @Override
+  //  @Override
   public void blockingMethod2() {
     block();
   }

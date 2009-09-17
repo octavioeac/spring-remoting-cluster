@@ -22,11 +22,11 @@ public abstract class AbstractServiceList implements ServiceList{
       this.uri = uri;
     }
     
-    @Override
+    //    @Override
     public void delete(){
       deleted = true;
     }
-    @Override
+    //    @Override
     public boolean isActive(){
       return active;
     }
@@ -37,12 +37,12 @@ public abstract class AbstractServiceList implements ServiceList{
     public boolean isValid(){
       return !deleted;
     }
-    @Override
+    //    @Override
     public boolean isDeleted(){
       return deleted;
     }
     
-    @Override
+    //    @Override
     public void setActive(final boolean active){
       this.active = active;
     }

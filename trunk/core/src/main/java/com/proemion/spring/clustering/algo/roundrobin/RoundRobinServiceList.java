@@ -52,7 +52,7 @@ public class RoundRobinServiceList extends AbstractServiceList{
       refresh(this);
     }
     
-    @Override
+    //    @Override
     public void abandonInvocation(final MethodInvocation invocation) {
       //Nothing to be done
     }
@@ -109,7 +109,7 @@ public class RoundRobinServiceList extends AbstractServiceList{
     }
   }
   
-  @Override
+  //  @Override
   public RemoteService claimInvocation(final MethodInvocation invocation){
     if (!isOneAlive()) {
       return null;
@@ -145,22 +145,22 @@ public class RoundRobinServiceList extends AbstractServiceList{
   /* (non-Javadoc)
    * @see rm.proemion.commons.spring.ServiceList#iterator()
    */
-  @Override
+  //  @Override
   public Iterator<RemoteService> iterator() {
     return new Iterator<RemoteService>(){
       Iterator<RoundRobinEntry> entryIterator = fullList.iterator();
       
-      @Override
+      //      @Override
       public boolean hasNext() {
         return entryIterator.hasNext();
       }
       
-      @Override
+      //      @Override
       public RemoteService next() {
         return entryIterator.next();
       }
       
-      @Override
+      //      @Override
       public void remove() {
         throw new UnsupportedOperationException();
       }
@@ -223,7 +223,7 @@ public class RoundRobinServiceList extends AbstractServiceList{
     }
   }
   
-  @Override
+  //  @Override
   public Iterable<? extends RemoteService> getDeadServices() {
     return deadSet;
   }
