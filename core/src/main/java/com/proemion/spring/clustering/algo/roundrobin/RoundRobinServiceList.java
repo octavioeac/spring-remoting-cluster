@@ -125,6 +125,9 @@ public class RoundRobinServiceList extends AbstractServiceList{
   }
   
   private RoundRobinEntry getNext() {
+    if (aliveServicesCount == 0) {
+      return null;
+    }
     RoundRobinEntry entry;
     int pointer = invocationCount.incrementAndGet();
     pointer = pointer % aliveServicesCount;
