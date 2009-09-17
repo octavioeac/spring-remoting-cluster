@@ -143,7 +143,7 @@ public class ParanoidFailureHandlerTest {
     setup.failureHandler.setMaxRetryCount(10);
     expect(setup.serviceList.isOneAlive()).andReturn(Boolean.FALSE).anyTimes();
     expect(setup.serviceList.iterator()).andAnswer(new IAnswer<Iterator<RemoteService>>(){
-      @Override
+      //      @Override
       public Iterator<RemoteService> answer() throws Throwable {
         return setup.services.iterator();
       }

@@ -46,7 +46,7 @@ public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements
   //Proxy
   private Object serviceProxy;
   
-  @Override
+  //  @Override
   public Object invoke(final MethodInvocation invocation) throws Throwable{
     boolean fin = false; //finish without further tries
     Object returnValue = null;
@@ -121,7 +121,7 @@ public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements
     return configuration.getServiceInterface();
   }
   
-  @Override
+  //  @Override
   public void afterPropertiesSet(){
     if (getConfiguration() == null) {
       throw new IllegalArgumentException("Clustering configuration required");
@@ -145,7 +145,7 @@ public class RemoteClusteringProxyFactoryBean extends RemotingSupport implements
     return true;
   }
   
-  @Override
+  //  @Override
   public void destroy() throws Exception {
     
   }

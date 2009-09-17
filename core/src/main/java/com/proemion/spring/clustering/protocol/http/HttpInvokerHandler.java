@@ -39,7 +39,7 @@ public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware
       this.interceptor = interceptor;
     }
     
-    @Override
+    //    @Override
     public URI getURI() {
       return uri;
     }
@@ -61,7 +61,7 @@ public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware
       this.invocation = invocation;
     }
     
-    @Override
+    //    @Override
     public void run() {
       try {
         Object returnValue = interceptor.invoke(invocation);
@@ -109,7 +109,7 @@ public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware
   public HttpInvokerHandler () {
   }
   
-  @Override
+  //  @Override
   public InvocationResult invoke (final RemoteService service, final MethodInvocation invocation) {
     logger.debug("call to {}, routing to {}",invocation.getMethod().getName(), service);
     HttpServiceDefinition definition = getServiceDefinition(service);
@@ -148,7 +148,7 @@ public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware
     return definition;
   }
   
-  @Override
+  //  @Override
   public void setBeanClassLoader(final ClassLoader beanClassLoader) {
     this.beanClassLoader = beanClassLoader;
   }
@@ -169,7 +169,7 @@ public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware
     return defaultTimeout;
   }
   
-  @Override
+  //  @Override
   public boolean testConnection(final RemoteService service) {
     HttpServiceDefinition definition = getServiceDefinition(service);
     boolean testConnection;
@@ -224,7 +224,7 @@ public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware
     return false;
   }
   
-  @Override
+  //  @Override
   public void afterPropertiesSet() throws Exception {
     ClusteringConfiguration config = getConfiguration();
     if (config == null) {
