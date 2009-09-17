@@ -104,7 +104,8 @@ public class HttpInvokerHandler implements ProtocolHandler, BeanClassLoaderAware
   private ClusteringConfiguration configuration;
   private ClassLoader beanClassLoader;
   private volatile List<Method> testMethods;
-  private long defaultTimeout = TimeUnit.MINUTES.toMillis(5);
+  //  private long defaultTimeout = TimeUnit.MINUTES.toMillis(5); //Java 6
+  private long defaultTimeout = TimeUnit.SECONDS.toMillis(5*60); //Java 5
   
   public HttpInvokerHandler () {
   }
