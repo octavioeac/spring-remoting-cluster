@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+- $Id: pom.xml 1889 2007-09-06 05:17:23Z ks3061 $
+- $HeadURL: http://10.10.1.210:8081/svn/pe2/trunk/pom.xml $
+- $Rev: 1889 $
+- $Date: 2007-09-06 07:17:23 +0200 (Do, 06 Sep 2007) $
+- $Author: ks3061 $
+-
+- Copyright (c) 2006-2008 Proemion GmbH.
+- Developed 2008 by Proemion GmbH.
+- All rights reserved.
+-
+- Use is subject to licence terms.
+-
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.proemion.spring.cluster</groupId>
+    <artifactId>reactor</artifactId>
+    <version>0.2.1</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+
+  <groupId>com.proemion.spring.cluster</groupId>
+  <artifactId>cluster-support</artifactId>
+  <packaging>jar</packaging>
+  <version>0.2.1</version>
+  <name>Clustering Support for Spring Remoting (support classes)</name>
+  <description>fill me</description>
+
+  <!--issueManagement>
+    <system>jira</system>
+    <url></url>
+  </issueManagement-->
+
+  <!--scm>
+    <connection>scm:svn:http://url</connection>
+    <url>http://url</url>
+    <developerConnection>scm:svn:https://url</developerConnection>
+  </scm-->
+
+  <dependencies>
+  
+    <!--dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <classifier>jdk15</classifier>
+      <scope>test</scope>
+      <version>${testng.version}</version>
+    </dependency-->
+  </dependencies>
+</project>
